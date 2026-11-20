@@ -18,3 +18,7 @@
 !graphics/denver-screens.zip
 !graphics/png/
 !graphics/png/*.png
+!versions/
+!versions/index.html
+!tony/
+!tony/index.html
