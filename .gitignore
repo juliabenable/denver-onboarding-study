@@ -26,3 +26,8 @@
 !found/index.html
 !badges/
 !badges/index.html
+!studies/
+!studies/*.html
+!shots/
+!shots/refs/
+!shots/refs/**
