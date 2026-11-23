@@ -31,3 +31,5 @@
 !shots/
 !shots/refs/
 !shots/refs/**
+!tony-wire/
+!tony-wire/index.html
