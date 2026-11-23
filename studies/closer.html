@@ -1928,6 +1928,25 @@
 .p2 .v-vt-sf b{flex:1;font-weight:600}.p2 .v-vt-sf span{color:#8a8478;font-weight:500}
 
 
+.p2 .v-vo-amb{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:6px}
+.p2 .v-vo-afrom{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:#6f6b78;margin:4px 0 0}
+.p2 .v-vo-pinwrap{width:140px;height:140px;margin:2px 0 0;transform:rotate(-8deg);filter:drop-shadow(0 12px 18px rgba(60,40,140,.22));animation:vvopin .7s cubic-bezier(.2,1.4,.4,1) both}
+.p2 .v-vo-pin{width:140px;height:140px}
+@keyframes vvopin{0%{transform:rotate(-30deg) scale(.6);opacity:0}100%{transform:rotate(-8deg) scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.p2 .v-vo-pinwrap{animation:none}}
+.p2 .v-vo-aht{font:700 27px/1.12 Inter,sans-serif;letter-spacing:-.025em;margin:4px 8px 8px;color:#141318}
+.p2 .v-vo-asub{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;color:#4a4652;margin:0 0 16px}
+.p2 .v-vo-perks{width:100%;background:#fff;border-radius:18px;padding:4px 16px;margin-bottom:16px;text-align:left;box-shadow:0 0 0 .5px rgba(20,19,24,.08)}
+.p2 .v-vo-perk{display:flex;flex-direction:column;padding:9px 0}
+.p2 .v-vo-perk+.v-vo-perk{box-shadow:inset 0 .5px 0 rgba(20,19,24,.08)}
+.p2 .v-vo-perk b{font-size:14.5px;font-weight:600}.p2 .v-vo-perk span{font-size:13px;color:#6f6b78}
+.p2 .v-vo-lpre{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:10px 12px;margin-bottom:10px;box-shadow:0 0 0 .5px rgba(20,19,24,.08),0 6px 16px -10px rgba(20,19,24,.25)}
+.p2 .v-vo-lcol{display:grid;grid-template-columns:21px 21px;gap:2px;border-radius:10px;overflow:hidden;flex:none}
+.p2 .v-vo-lcc{display:block;line-height:0}
+.p2 .v-vo-lname{font-size:15px;font-weight:600;outline:none}
+.p2 .v-vo-lpre .v-rt span{white-space:normal;font-size:12px;line-height:1.3}
+.p2 .v-vo-lpre em{font-style:normal;font-weight:600;color:#141318}
+.p2 .v-vo-ledit{font-size:12.5px;font-weight:600;color:#5b3fd6;flex:none}
 .p2 .v-vo-kr{width:100%;padding:8px 0;transition:opacity .18s,max-height .22s,padding .22s;max-height:70px;overflow:hidden}
 .p2 .v-vo-kr.gone{opacity:0;max-height:0;padding:0}
 .p2 .v-vo-x{width:30px;height:30px;border-radius:15px;display:grid;place-items:center;color:#9a96a3;flex:none;box-shadow:inset 0 0 0 .5px rgba(20,19,24,.16)}
@@ -3950,7 +3969,7 @@ h2{font:700 24px/1.2 Inter,sans-serif;letter-spacing:-.01em;margin:52px 0 14px}
 
 (function(){
   function count(list){ var ph=list.closest('.p2'); var gone=list.querySelectorAll('[data-vo-row].gone').length; var pending=list.querySelector('[data-vo-ask]:not(.gone):not(.ok)')?1:0;
-    var n=9-gone-pending; var k=ph.querySelector('[data-vo-keep]'); if(k) k.textContent='Keep '+n+' new place'+(n===1?'':'s'); }
+    var n=9-gone-pending; var k=ph.querySelector('[data-vo-keep]'); if(k) k.textContent=n+' new'; }
   var last=null;
   function remove(row){ var list=row.closest('[data-vo-list]'); row.classList.add('gone'); last=row;
     var u=list.querySelector('[data-vo-undo]'); u.hidden=false; u.querySelector('[data-vo-ut]').textContent='Removed '+row.querySelector('.v-rt b').textContent; count(list); }
