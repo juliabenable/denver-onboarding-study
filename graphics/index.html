@@ -2058,7 +2058,7 @@
 .p2 .v-vo-shots{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;margin-top:60px;font-size:15px;font-weight:500;color:#141318}
 .p2 .v-vo-shots .ic{color:#6f6b78}
 /* 5. found */
-.p2 .v-vo-fscroll{position:absolute;left:0;right:0;top:44px;bottom:0;overflow:hidden auto;scrollbar-width:none;padding-bottom:84px}
+.p2 .v-vo-fscroll{position:absolute;left:0;right:0;top:44px;bottom:0;overflow:hidden auto;scrollbar-width:none;padding-bottom:170px}
 .p2 .v-vo-fscroll::-webkit-scrollbar{display:none}
 .p2 .v-vo-fk{display:flex;align-items:center;gap:7px;font-size:13px;color:#8b8794;margin:4px 0 0}
 .p2 .v-vo-fk .av{flex:none}
@@ -3977,7 +3977,7 @@ h1{font:400 52px/1 "Instrument Serif",Georgia,serif;letter-spacing:-.02em;margin
 
 (function(){
   function count(list){ var ph=list.closest('.p2'); var gone=list.querySelectorAll('[data-vo-row].gone').length; var pending=list.querySelector('[data-vo-ask]:not(.gone):not(.ok)')?1:0;
-    var n=9-gone-pending; var k=ph.querySelector('[data-vo-keep]'); if(k) k.textContent=n+' new'; }
+    var n=9-gone-pending; var k=ph.querySelector('[data-vo-keep]'); if(k) k.textContent=(n+14)+' places'; }
   var last=null;
   function remove(row){ var list=row.closest('[data-vo-list]'); row.classList.add('gone'); last=row;
     var u=list.querySelector('[data-vo-undo]'); u.hidden=false; u.querySelector('[data-vo-ut]').textContent='Removed '+row.querySelector('.v-rt b').textContent; count(list); }
