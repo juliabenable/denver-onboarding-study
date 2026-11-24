@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wednesday in Denver</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one editorial column; ideas sorted into three altitude bands (5,280 ft = Monday, 10,000 ft = past it, 14,000 ft = the 14ers), each idea = text left, a Wednesday scene right. */
+:root{
+  --bg:#f2f4f6; --paper:#ffffff; --ink:#151c26; --muted:#5b6573; --faint:#8b94a1;
+  --line:#d7dce3; --tint:#e8ecf0; --accent:#c8385f; --accent-soft:#f7dde4; --sky:#2d5f9e;
+  --ridge1:#c9d2dc; --ridge2:#aebbc9; --ridge3:#8797aa;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141a; --paper:#171e27; --ink:#e8edf2; --muted:#a3adba; --faint:#7a8494;
+  --line:#2b3542; --tint:#212a35; --accent:#ff7896; --accent-soft:#3a1f29; --sky:#7fb0ef;
+  --ridge1:#1d2631; --ridge2:#253141; --ridge3:#33445a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141a; --paper:#171e27; --ink:#e8edf2; --muted:#a3adba; --faint:#7a8494;
+  --line:#2b3542; --tint:#212a35; --accent:#ff7896; --accent-soft:#3a1f29; --sky:#7fb0ef;
+  --ridge1:#1d2631; --ridge2:#253141; --ridge3:#33445a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.015em}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+a{color:var(--sky)}
+
+/* hero */
+.hero{position:relative;padding-block:64px 0}
+.hero .kick{color:var(--accent);margin-bottom:18px}
+.hero h1{font-size:clamp(40px,7vw,84px);line-height:.98;font-weight:800;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{margin-top:22px;font-size:19px;line-height:1.55;color:var(--muted);max-width:60ch}
+.hero .lede b{color:var(--ink);font-weight:600}
+.ridge{display:block;width:100%;height:150px;margin-top:36px}
+
+/* the bar */
+.bar{background:var(--paper);border-block:1px solid var(--line)}
+.bar .wrap{padding-block:36px;display:grid;grid-template-columns:240px 1fr;gap:32px}
+.bar h2{font-size:24px;line-height:1.2}
+.bar .src{color:var(--faint);margin-top:8px}
+.tests{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px}
+.test b{display:block;font-size:14.5px}
+.test span{display:block;font-size:13.5px;color:var(--muted);line-height:1.5}
+.test .k{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+
+/* prose sections */
+.sec{padding-block:64px 8px}
+.sec h2{font-size:clamp(28px,3.6vw,40px);line-height:1.08;max-width:22ch}
+.sec .intro{margin-top:14px;color:var(--muted);font-size:17px;max-width:64ch}
+.gap{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.gapcol{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.gapcol h3{font-size:17px;margin-bottom:10px}
+.gapcol ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.gapcol li+li{margin-top:4px}
+.gapcol li b{color:var(--ink);font-weight:600}
+
+.shifts{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.shift{background:var(--paper);padding:20px 20px 22px}
+.shift .from{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.shift .to{font-family:var(--f-display);font-weight:700;font-size:21px;line-height:1.15;margin:4px 0 8px}
+.shift p{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* altitude bands */
+.band{padding-block:72px 0}
+.bandhead{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:end;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+.alt{font-family:var(--f-display);font-weight:800;font-size:clamp(44px,6vw,68px);line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.alt small{font-size:.32em;letter-spacing:0;margin-left:4px;color:var(--faint)}
+.bandhead h2{font-size:22px}
+.bandhead p{color:var(--muted);font-size:14.5px;grid-column:2}
+
+.idea{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;padding-block:40px;border-bottom:1px solid var(--line)}
+.idea .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.new{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.idea h3{font-size:30px;line-height:1.08;font-weight:700}
+.idea .one{margin-top:10px;font-size:17px;line-height:1.5;max-width:60ch}
+.facts{margin-top:18px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:9px 18px;font-size:14.5px}
+.facts dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);padding-top:3px}
+.facts dd{margin:0;color:var(--muted);line-height:1.5}
+.facts dd b{color:var(--ink);font-weight:600}
+.score{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px}
+.score span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--faint)}
+.score span.y{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.score span.h{border-color:var(--ink);color:var(--ink)}
+
+/* scenes (neutral wireframe skin) */
+.scene{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px)}
+.scene .cap{color:var(--faint);margin-bottom:8px;display:flex;justify-content:space-between}
+.ph{background:var(--paper);border:1.5px solid var(--ink);border-radius:30px;padding:18px 14px 16px;font-size:12.5px;line-height:1.4;box-shadow:0 18px 40px -28px rgba(10,20,40,.45)}
+.ph .sb{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;color:var(--faint);padding:0 6px 10px}
+.ph h4{margin:0 0 8px;font-family:var(--f-display);font-size:19px;line-height:1.1;font-weight:700}
+.ph .sub{color:var(--faint);font-size:11px;margin-bottom:10px}
+.row{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.th{flex:none;width:40px;height:40px;border-radius:10px;background:var(--tint);position:relative}
+.th.v:after{content:"";position:absolute;left:16px;top:13px;border-left:10px solid var(--faint);border-block:7px solid transparent}
+.rt{min-width:0;flex:1}
+.rt b{display:block;font-size:13px}
+.rt span{display:block;color:var(--muted);font-size:11.5px}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0 4px}
+.reels i{aspect-ratio:9/14;border-radius:8px;background:var(--tint);position:relative;display:block}
+.reels i:after{content:"";position:absolute;left:42%;top:42%;border-left:9px solid var(--faint);border-block:6px solid transparent}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 10px}
+.chips span{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chips span.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btns{display:flex;gap:6px;margin-top:10px}
+.btns span{flex:1;text-align:center;font-weight:600;font-size:12px;padding:9px 6px;border-radius:999px;border:1px solid var(--line)}
+.btns span.p{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.note{background:var(--tint);border-radius:12px;padding:9px 11px;margin-top:8px}
+.note b{font-size:12px}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.bub{max-width:86%;padding:8px 11px;border-radius:16px;margin-top:7px}
+.bub.them{background:var(--tint);border-bottom-left-radius:5px}
+.bub.me{background:var(--ink);color:var(--paper);margin-left:auto;border-bottom-right-radius:5px}
+.map{position:relative;height:150px;border-radius:14px;background:var(--tint);overflow:hidden;margin-bottom:10px}
+.map:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(32deg,transparent 0 24px,var(--paper) 24px 26px),repeating-linear-gradient(-58deg,transparent 0 34px,var(--paper) 34px 36px);opacity:.8}
+.dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px var(--paper)}
+.dot.g{background:var(--faint);opacity:.6;width:8px;height:8px;box-shadow:none}
+.dot.a{background:var(--accent)}
+.dlab{position:absolute;font-size:10px;font-weight:600;background:var(--paper);padding:1px 6px;border-radius:6px;border:1px solid var(--line)}
+.big{font-family:var(--f-display);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.02em}
+.ai{border:1px solid var(--line);border-radius:14px;padding:10px 11px;margin-top:8px}
+.src2{display:flex;gap:6px;align-items:center;font-size:10.5px;color:var(--faint);margin-top:6px}
+
+/* stack + loop */
+.stack{margin-top:28px;display:grid;gap:8px}
+.layer{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.layer b{font-family:var(--f-display);font-size:17px}
+.layer b small{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:500}
+.layer .its{display:flex;flex-wrap:wrap;gap:6px}
+.layer .its span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--tint)}
+.layer .its span.pk{background:var(--accent);color:var(--paper)}
+.pick{margin-top:36px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:start}
+.pick h3{font-size:28px;line-height:1.1}
+.pick p{margin-top:12px;color:var(--muted);font-size:15.5px}
+.pick p b{color:var(--ink)}
+.loop{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px}
+.loop ol{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:0}
+.loop li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;gap:12px;padding:9px 0;border-top:1px dashed var(--line);font-size:14.5px}
+.loop li:first-child{border-top:0}
+.loop li:before{content:counter(s);font-family:var(--f-mono);font-size:11px;width:24px;height:24px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center}
+.loop li span{color:var(--faint);display:block;font-size:12.5px}
+.loop .back{margin-top:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+
+.story{margin-top:28px;background:var(--ink);color:var(--paper);border-radius:18px;padding:32px clamp(20px,4vw,40px)}
+.story .mono{color:var(--accent)}
+.story p.t{font-family:var(--f-display);font-size:clamp(20px,2.4vw,26px);line-height:1.35;font-weight:500;margin-top:12px;max-width:52ch}
+.story ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;max-width:64ch}
+.story li{display:grid;grid-template-columns:64px 1fr;gap:14px;font-size:15px;line-height:1.5}
+.story li .mono{font-size:11px;padding-top:4px}
+
+.qs{margin-top:24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.q b{display:block;font-family:var(--f-display);font-size:18px;line-height:1.25}
+.q span{display:block;margin-top:6px;color:var(--muted);font-size:14px}
+
+footer{padding-block:56px 72px;color:var(--faint);font-size:13px}
+footer .wrap>div{border-top:1px solid var(--line);padding-top:20px;display:grid;gap:6px;max-width:80ch}
+
+@media (max-width:860px){
+  .bar .wrap{grid-template-columns:1fr}
+  .tests{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shifts{grid-template-columns:1fr}
+  .idea{grid-template-columns:1fr;gap:24px}
+  .scene{position:static;max-width:320px}
+  .pick{grid-template-columns:1fr}
+  .gap,.qs{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:520px){
+  .tests{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr;gap:2px}
+  .facts dd{margin-bottom:8px}
+  .bandhead{grid-template-columns:1fr}
+  .bandhead p{grid-column:1}
+  .idea h3{font-size:26px}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="mono kick">Denver study · after the Nov 23 review</div>
+    <h1>Wednesday, 5:04pm. Why do you open <em>Benable?</em></h1>
+    <p class="lede">Tony's question on Monday: <b>you've been on Benable for three weeks, you're in Denver, and you open the app. What are you there for?</b> This study goes past what we discussed in the brainstorm. It ignores how hard anything would be to build, on purpose. Twelve ideas, sorted by how far they climb past Monday.</p>
+  </div>
+  <canvas class="ridge" id="ridge" aria-hidden="true"></canvas>
+</header>
+
+<section class="bar">
+  <div class="wrap">
+    <div>
+      <h2>The bar every idea has to clear</h2>
+      <div class="mono src">Agreed · Nov 23 review</div>
+    </div>
+    <div class="tests">
+      <div class="test"><span class="k">Daily</span><b>A reason to open it near daily</b><span>After onboarding is long over, as a creator or a browser.</span></div>
+      <div class="test"><span class="k">Flow</span><b>Flow over stock</b><span>Live and changing, like stories. Not 16M static recs.</span></div>
+      <div class="test"><span class="k">Drafts</span><b>Draft off what exists</b><span>Creators already post every day. Don't ask them to post twice.</span></div>
+      <div class="test"><span class="k">Effort</span><b>Almost no effort, a lot of benefit</b><span>Benable today is the opposite: a lot of work for a little.</span></div>
+      <div class="test"><span class="k">10x</span><b>10x better, or impossible elsewhere</b><span>Or impossible two years ago. Clips failed this one.</span></div>
+      <div class="test"><span class="k">Beyond</span><b>Bigger than recommendations</b><span>People connecting over things they lived.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Where the brainstorm stopped</h2>
+    <p class="intro">Almost everything we brought was stock: things that say who you are. The one idea that was flow, Ask Denver, failed on frequency. Tony's idea of taking in all the Denver content creators already post was the first real flow idea, and the conversation ended there.</p>
+    <div class="gap">
+      <div class="gapcol">
+        <h3>What we have: who you are</h3>
+        <ul>
+          <li><b>Denver onboarding:</b> arrive to a place already full of your things.</li>
+          <li><b>Top 5:</b> curation as your social currency.</li>
+          <li><b>Lists, profile, taste match:</b> identity and polish.</li>
+        </ul>
+      </div>
+      <div class="gapcol">
+        <h3>What's missing: why today</h3>
+        <ul>
+          <li><b>Something new every day</b> that nobody had to post for.</li>
+          <li><b>Something to do with people</b>, beyond reading their picks.</li>
+          <li><b>A reason that comes to you</b>, so opening the app isn't a chore.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Six shifts in how to think about it</h2>
+    <p class="intro">Each idea below comes from one or more of these moves. They're the useful part even if every idea gets cut.</p>
+    <div class="shifts">
+      <div class="shift"><div class="from">From recs</div><div class="to">To moments</div><p>The unit is a post, at a place, at a time. A rec is just a moment someone kept.</p></div>
+      <div class="shift"><div class="from">From pull</div><div class="to">To push</div><p>Benable comes to you when something matters. The app is where you go deeper.</p></div>
+      <div class="shift"><div class="from">From places</div><div class="to">To plans</div><p>Social life happens when people go somewhere together, more than when they like a spot.</p></div>
+      <div class="shift"><div class="from">From followers</div><div class="to">To foresight</div><p>Status comes from taste that proved right early, so a regular person can beat a big account.</p></div>
+      <div class="shift"><div class="from">From strangers</div><div class="to">To tables</div><p>Shared taste is a reason to meet. The mission is connecting people, and places are where they meet.</p></div>
+      <div class="shift"><div class="from">From an app</div><div class="to">To a layer</div><p>Benable's trust graph can power the AI everyone already asks, instead of competing with it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5,280 ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="bandhead">
+      <div class="alt">5,280<small>ft</small></div>
+      <h2>Where Monday ended, pushed further</h2>
+      <p>Ideas we touched in the review. Each one goes a step past where the conversation stopped.</p>
+    </div>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag">From Monday, pushed further</span></div>
+        <h3>The Pulse</h3>
+        <p class="one">Benable reads every post Denver creators share on Instagram and TikTok, works out the place, and ranks where people actually went this week. The count is agreement between people, not stars.</p>
+        <dl class="facts">
+          <dt>Further than Monday</dt><dd>Every place gets a <b>living timeline</b> in video: last summer, the new chef, the Friday line. And a <b>Rising</b> shelf catches places a week before they're everywhere.</dd>
+          <dt>Why you come back</dt><dd>It's different every day. You check it like the weather.</dd>
+          <dt>Why it's new</dt><dd>Counting agreement across creators, platforms and days means reading video at scale. Two years ago that was a research project.</dd>
+          <dt>Borrows from</dt><dd>Tony's ingest idea, Corner's popular top 10, Instagram's map done right (fresh, by place, not only people you follow).</dd>
+          <dt>Hard question</dt><dd>What is a "post" when stories disappear and can't be embedded? Probably the last 48 hours of reels and TikToks.</dd>
+        </dl>
+        <div class="score"><span class="y">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="h">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Denver</span></div>
+          <h4>This week in Denver</h4>
+          <div class="sub">From 214 local creators · updated 12 min ago</div>
+          <div class="row"><div class="rt"><b>Hop Alley · RiNo</b><span>6 creators went since Saturday</span></div></div>
+          <div class="reels"><i></i><i></i><i></i></div>
+          <div class="row"><div class="th v"></div><div class="rt"><b>Rising: a new patio in LoHi</b><span>3 new posts today · 0 last week</span></div><span class="pill">Rising</span></div>
+          <div class="row"><div class="th v"></div><div class="rt"><b>Tattered Cover · Colfax</b><span>4 creators · "the reading nook is back"</span></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag">From Monday, pushed further</span></div>
+        <h3>Tonight, ranked by people</h3>
+        <p class="one">Everything happening tonight, from creator posts plus Luma, Partiful and Eventbrite, ranked by who you trust that is going or posted about it. Filters in plain words: free, not loud, not sold out.</p>
+        <dl class="facts">
+          <dt>Further than Monday</dt><dd>"I'm in" shows your people where you'll be. The morning after, the event turns into <b>one shared page of everyone's posts</b> from it.</dd>
+          <dt>Why you come back</dt><dd>"What do I do tonight" is a daily question. "Where do I take my mom" is a monthly one.</dd>
+          <dt>Why it's new</dt><dd>The best Denver events live in captions and stories, not on ticket sites. Reading them needs AI.</dd>
+          <dt>Borrows from</dt><dd>Olivia searching "Tuesdays in Denver", the weekly roundup accounts, Partiful.</dd>
+          <dt>Hard question</dt><dd>It has to look full every single night, including a Monday in January.</dd>
+        </dl>
+        <div class="score"><span class="y">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="h">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Denver</span></div>
+          <h4>Tonight</h4>
+          <div class="chips"><span class="on">Free</span><span class="on">Not loud</span><span>Not sold out</span><span>Near me</span></div>
+          <div class="row"><div class="th"></div><div class="rt"><b>Backgammon club · Highlands</b><span>7pm · free · Maya and 2 others going</span></div></div>
+          <div class="row"><div class="th"></div><div class="rt"><b>Junk journaling night · Baker</b><span>7:30 · 4 spots left · posted by 2 creators</span></div></div>
+          <div class="row"><div class="th"></div><div class="rt"><b>Open-mic poetry · Five Points</b><span>8pm · free · 1 creator going</span></div></div>
+          <div class="btns"><span class="p">I'm in</span><span>Save</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag">From Monday, pushed further</span></div>
+        <h3>Ask, answered by people who were there</h3>
+        <p class="one">You ask. AI answers right away from what Denver creators posted. Then the two or three people who actually went get a ping and can vouch with one tap.</p>
+        <dl class="facts">
+          <dt>Further than Monday</dt><dd>Answerers build a reputation by topic, like "Denver's brunch person". That reputation feeds Called it, further down.</dd>
+          <dt>Why you come back</dt><dd>You get an answer in seconds, so asks can stay rare and still be worth it.</dd>
+          <dt>Why it's new</dt><dd>Routing a question to the person with proof they were there needs AI that read their posts. A group chat can't do that.</dd>
+          <dt>Borrows from</dt><dd>Tony's AI routing idea (his brand portal angle), the Rec League reply loop.</dd>
+          <dt>Hard question</dt><dd>How does a ping feel like a compliment and not like a chore?</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="h">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Ask</span></div>
+          <div class="bub me">Quiet dinner for my mom on Sunday? She hates loud rooms.</div>
+          <div class="ai">
+            <b>3 places fit</b>
+            <div class="row"><div class="th"></div><div class="rt"><b>Cooper Lounge · Union Station</b><span>Mentioned by 5 creators as "calm"</span></div></div>
+            <div class="note"><b>Maya went Saturday</b><br>Quiet before 7. Ask for the back booth.</div>
+            <div class="src2"><span class="pill">Vouched</span> 2 people who went</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag">From Monday, pushed further</span></div>
+        <h3>Out now</h3>
+        <p class="one">Turn on "out" for three hours. Your people see where you are, and it switches itself off. You only see others while you're sharing too.</p>
+        <dl class="facts">
+          <dt>Further than Monday</dt><dd>Strangers show as <b>anonymous dots by neighborhood</b>, so you can see where Denver is out tonight without seeing who.</dd>
+          <dt>Why you come back</dt><dd>It's the thing you open right when you're deciding where to go.</dd>
+          <dt>Why it's new</dt><dd>Give-to-get, time-boxed sharing avoids the always-on location problem that iOS keeps re-asking about.</dd>
+          <dt>Borrows from</dt><dd>Tony's idea, Instagram's 24-hour location, Zenly's friend map.</dd>
+          <dt>Hard question</dt><dd>Safety defaults, and it needs friend groups that are already on Benable.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="h">Drafts</span><span class="y">Effort</span><span class="h">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>6:12</span><span>Out now</span></div>
+          <div class="map">
+            <i class="dot g" style="left:20%;top:30%"></i><i class="dot g" style="left:26%;top:38%"></i><i class="dot g" style="left:70%;top:62%"></i><i class="dot g" style="left:74%;top:56%"></i><i class="dot g" style="left:78%;top:66%"></i><i class="dot g" style="left:50%;top:80%"></i>
+            <i class="dot" style="left:44%;top:40%"></i><span class="dlab" style="left:48%;top:30%">Sam · Union Station</span>
+            <i class="dot a" style="left:62%;top:22%"></i><span class="dlab" style="left:28%;top:12%">You</span>
+          </div>
+          <div class="row"><div class="rt"><b>RiNo is busy tonight</b><span>23 people out · 2 you know</span></div></div>
+          <div class="btns"><span class="p">I'm out · 2:58 left</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 10,000 ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="bandhead">
+      <div class="alt">10,000<small>ft</small></div>
+      <h2>Past the brainstorm</h2>
+      <p>New ideas. None of these came up on Monday.</p>
+    </div>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Your Denver writes itself</h3>
+        <p class="one">With your OK, Benable reads your camera roll, your stories and your receipts, and quietly builds your Denver: every place you've been, when, and how often. You choose what goes public.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>Your camera roll is the biggest record of lived experience nobody has claimed. Onboarding drops to ten seconds, and it never goes stale.</dd>
+          <dt>Why you come back</dt><dd>Every week: "3 new places this week, keep them?" And always: "your year so far".</dd>
+          <dt>Why it's new</dt><dd>On-phone AI can now read thousands of photos and match places in seconds.</dd>
+          <dt>Borrows from</dt><dd>Apple and Google Photos memories, the Letterboxd diary, Swarm's check-in history, Olivia's mini guides (AI working for you).</dd>
+          <dt>Hard question</dt><dd>It has to feel like your diary, never like being tracked.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>My Denver</span></div>
+          <div class="sub">From your photos since 2023</div>
+          <div class="big">212</div>
+          <div style="margin:2px 0 10px;color:var(--muted)">Denver places you've been</div>
+          <div class="row"><div class="th"></div><div class="rt"><b>Tattered Cover · Colfax</b><span>14 visits · last one Sunday</span></div></div>
+          <div class="row"><div class="th"></div><div class="rt"><b>3 new this week</b><span>Keep them in My Denver?</span></div></div>
+          <div class="btns"><span class="p">Keep all 3</span><span>Keep private</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Plans, not places</h3>
+        <p class="one">The social unit becomes going. Benable notices that you, Maya and Sam all saved the same spot and all have Thursday free, and it suggests the night. Afterwards the plan turns into a shared memory with everyone's photos.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>Saves finally do something. Tony's point that saving is infinite becomes a supply of nights out.</dd>
+          <dt>Why you come back</dt><dd>Your plans live here, and so do the memories from them.</dd>
+          <dt>Why it's new</dt><dd>Taste twins, acted on. No app joins "we both want to go" with "we're both free".</dd>
+          <dt>Borrows from</dt><dd>Our taste twins idea, Partiful, shared albums.</dd>
+          <dt>Hard question</dt><dd>Calendars are private. A "who's free Thursday" tap may be enough.</dd>
+        </dl>
+        <div class="score"><span class="y">Daily</span><span class="y">Flow</span><span class="h">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Plans</span></div>
+          <h4>You, Maya and Sam all saved Hop Alley</h4>
+          <div class="sub">All three of you are free Thursday</div>
+          <div class="btns"><span class="p">Thursday?</span><span>Another night</span></div>
+          <div class="row" style="margin-top:12px"><div class="th"></div><div class="rt"><b>Last Thursday · Avanti</b><span>4 of you · 11 photos · 2 new saves</span></div></div>
+          <div class="reels"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Called it</h3>
+        <p class="one">Every save is timestamped. When a place takes off in the Pulse, the people who saved it first get the credit. Status in Denver comes from taste that proved right early, not from followers.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>A status game that a regular person or a small creator can win. Limited picks, like Top 5, keep it honest.</dd>
+          <dt>Why you come back</dt><dd>To see if your calls are paying off, and to make the next one before anyone else.</dd>
+          <dt>Why it's new</dt><dd>No platform measures taste foresight. Benable has save dates, and the Pulse shows what the city posted later.</dd>
+          <dt>Borrows from</dt><dd>Strava's local legends, Foursquare mayors, "I liked them before they were famous".</dd>
+          <dt>Hard question</dt><dd>People saving everything to farm credit. Scarce picks fix most of it.</dd>
+        </dl>
+        <div class="score"><span class="y">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="h">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Called it</span></div>
+          <span class="pill">You called it</span>
+          <h4 style="margin-top:8px">You saved Hop Alley 41 days before it started rising.</h4>
+          <div class="sub">212 people have saved it since</div>
+          <div class="row"><div class="rt"><b>Your calls this year</b><span>7 places · 3 now in the Pulse</span></div></div>
+          <div class="row"><div class="rt"><b>Denver's early finders</b><span>1. Jules · 9 calls &nbsp; 2. You · 7 &nbsp; 3. Sam · 6</span></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Regulars</h3>
+        <p class="one">Denver places can see their true regulars, proven by posts, visits and saves, and thank them: a first taste of the new menu, a seat at the soft opening.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>Local fans meet Benable's brand business. Places pay for fans with proof, which is cheaper and warmer than ads.</dd>
+          <dt>Why you come back</dt><dd>Perks, and a reason to keep your Denver up to date.</dd>
+          <dt>Why it's new</dt><dd>Proof that you're a real fan, pulled from what you already post and photograph.</dd>
+          <dt>Borrows from</dt><dd>Your "receipts that I really love this" idea, Tony's MD Solar Sciences answerers, Yelp Elite events.</dd>
+          <dt>Hard question</dt><dd>Places have to want to do this every month, not once.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Regulars</span></div>
+          <div class="th" style="width:100%;height:96px;border-radius:14px;margin-bottom:10px"></div>
+          <h4>Avanti's regulars night</h4>
+          <div class="sub">You're one of their top 40 fans · Thursday 6pm</div>
+          <div class="note"><b>Why you:</b> 9 visits and 3 posts this year</div>
+          <div class="btns"><span class="p">Claim my seat</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>City rituals</h3>
+        <p class="one">Denver shares moments: first snow, patio season, Red Rocks opening night, Broncos Sundays, beer festival week. For 48 hours each one becomes a city board built from everyone's posts. Then it closes and goes into Denver's year.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>Flow with a deadline. These are moments you miss if you don't check, and at year end they add up to a Denver Wrapped.</dd>
+          <dt>Why you come back</dt><dd>Two or three times a month, the city is doing something together.</dd>
+          <dt>Why it's new</dt><dd>AI can assemble a whole city's posts into one story while the moment is still happening.</dd>
+          <dt>Borrows from</dt><dd>BeReal's daily moment, Snap's Our Story, Spotify Wrapped.</dd>
+          <dt>Hard question</dt><dd>Rituals are seasonal. It needs a planned calendar of moments.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="h">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>7:40</span><span>Live</span></div>
+          <span class="pill">Live · closes in 41h</span>
+          <h4 style="margin-top:8px">First snow</h4>
+          <div class="sub">312 Denver posts in 6 hours</div>
+          <div class="reels"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="row"><div class="rt"><b>Where Denver goes when it snows</b><span>The 5 places the city picked today</span></div></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 14,000 ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="bandhead">
+      <div class="alt">14,000<small>ft</small></div>
+      <h2>The 14ers</h2>
+      <p>Colorado's highest peaks. Moonshots that change what Benable is, not just what it shows.</p>
+    </div>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Tables</h3>
+        <p class="one">Every Wednesday, Benable seats six strangers whose saves overlap, at a place one of them loves. An ambassador hosts. You show up and meet people who already share your taste.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>It's the mission taken literally: connecting people over lived experiences. Shared taste becomes a reason to meet, not just a stat.</dd>
+          <dt>Why you come back</dt><dd>Your Wednesday table, the people you met there, and the plans that follow.</dd>
+          <dt>Why it's new</dt><dd>Matching on the real places you love instead of a personality quiz.</dd>
+          <dt>Borrows from</dt><dd>Timeleft's dinners with strangers, supper clubs, Benable's events strategy.</dd>
+          <dt>Hard question</dt><dd>Safety and running it every week. It turns Benable into an events company in part.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="h">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Tables</span></div>
+          <h4>Your table tonight</h4>
+          <div class="sub">7:30 · Hop Alley · hosted by Olivia</div>
+          <div style="display:flex;gap:6px;margin:4px 0 10px"><i class="th" style="width:30px;height:30px;border-radius:50%"></i><i class="th" style="width:30px;height:30px;border-radius:50%"></i><i class="th" style="width:30px;height:30px;border-radius:50%"></i><i class="th" style="width:30px;height:30px;border-radius:50%"></i><i class="th" style="width:30px;height:30px;border-radius:50%"></i></div>
+          <div class="note"><b>Why these five:</b> you've all saved at least 3 of the same places, including Tattered Cover.</div>
+          <div class="btns"><span class="p">I'll be there</span><span>Skip this week</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>Your taste agent</h3>
+        <p class="one">A personal AI that knows your Denver and whose taste you trust. It texts you two things a week, makes the plan and holds the table. You rarely open the app. The app is where you tune it.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>The daily reason is that it comes to you. It's Tony's "very low effort, high benefit" taken as far as it goes.</dd>
+          <dt>Why you come back</dt><dd>You don't have to. Opening the app becomes a choice, not the price of entry.</dd>
+          <dt>Why it's new</dt><dd>An agent that acts for you, grounded in people you trust instead of the open web.</dd>
+          <dt>Borrows from</dt><dd>The Instinct and Muse assistants Tony mentioned, Olivia's mini guides, concierge services.</dd>
+          <dt>Hard question</dt><dd>It has to be right most of the time, or it's spam.</dd>
+        </dl>
+        <div class="score"><span class="y">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Messages</span></div>
+          <div class="sub" style="text-align:center">Benable</div>
+          <div class="bub them">Sam and Maya are both free Friday. Hop Alley has a table for 3 at 7:15. Want it?</div>
+          <div class="bub me">Yes!</div>
+          <div class="bub them">Done. I told them both. The person you trust on cocktails says get the plum one.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="idea">
+      <div>
+        <div class="top"><span class="tag new">New</span></div>
+        <h3>The human layer for AI</h3>
+        <p class="one">When anyone asks any AI where to take their mom in Denver, the answer quotes Benable: "6 Denver locals recommend this, and here's what Maya said." Benable stops competing with AI and becomes what AI cites.</p>
+        <dl class="facts">
+          <dt>The big move</dt><dd>It answers "why wouldn't I just ask AI?" by turning it around: the AI asks Benable. Creators get credit everywhere people ask.</dd>
+          <dt>Why you come back</dt><dd>Your picks and vouches reach far more people than your followers.</dd>
+          <dt>Why it's new</dt><dd>AI answers need fresh, trusted, human signal. That's exactly what the Pulse, Called it and vouches produce.</dd>
+          <dt>Borrows from</dt><dd>Our LLM answer visibility work, Reddit licensing its posts to AI companies.</dd>
+          <dt>Hard question</dt><dd>It's a distribution bet more than an experience, and it needs volume first.</dd>
+        </dl>
+        <div class="score"><span class="h">Daily</span><span class="y">Flow</span><span class="y">Drafts</span><span class="y">Effort</span><span class="y">10x</span><span class="y">Beyond</span></div>
+      </div>
+      <div class="scene">
+        <div class="mono cap"><span>Wednesday scene</span><span>Illustrative</span></div>
+        <div class="ph">
+          <div class="sb"><span>5:04</span><span>Any AI app</span></div>
+          <div class="bub me">Quiet dinner in Denver Sunday for my mom?</div>
+          <div class="ai">
+            <b>Cooper Lounge, Union Station</b>
+            <div style="color:var(--muted);margin-top:3px">Calm, big windows, good martinis.</div>
+            <div class="note"><b>Maya, Denver local:</b> Quiet before 7. Ask for the back booth.</div>
+            <div class="src2"><span class="pill">From Benable</span> Trusted by 6 Denver locals</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>How they stack</h2>
+    <p class="intro">Each idea answers a different part of "why open it". Together they make five layers. The floor Tony approved covers the first one.</p>
+    <div class="stack">
+      <div class="layer"><b><small>Layer 1 · stock</small>Who you are</b><div class="its"><span>Denver onboarding</span><span>Top 5</span><span>Your Denver writes itself</span></div></div>
+      <div class="layer"><b><small>Layer 2 · flow</small>What's happening</b><div class="its"><span class="pk">The Pulse</span><span>Tonight</span><span>City rituals</span></div></div>
+      <div class="layer"><b><small>Layer 3 · people</small>Who you do it with</b><div class="its"><span class="pk">Plans</span><span>Out now</span><span>Tables</span></div></div>
+      <div class="layer"><b><small>Layer 4 · worth it</small>Why it pays off</b><div class="its"><span class="pk">Called it</span><span>Regulars</span><span>Vouches</span></div></div>
+      <div class="layer"><b><small>Layer 5 · reach</small>How it finds you</b><div class="its"><span>Taste agent</span><span>Human layer for AI</span></div></div>
+    </div>
+
+    <div class="pick">
+      <div>
+        <div class="mono" style="color:var(--accent)">Proposed · our pick</div>
+        <h3>The Pulse, Called it and Plans</h3>
+        <p><b>The Pulse</b> gives the daily reason, and nobody has to post anything new for it. <b>Called it</b> gives locals and small creators a reason to save early, which makes the Pulse smarter. <b>Plans</b> turn saves into nights out, which is the lived experience Tony asked for.</p>
+        <p>Each one feeds the next, so the loop runs on what people already do: post, save, go out.</p>
+      </div>
+      <div class="loop">
+        <ol>
+          <li><div>Creators post about Denver<span>On Instagram and TikTok, like they already do</span></div></li>
+          <li><div>The Pulse ranks where people went<span>Flow: different every day</span></div></li>
+          <li><div>You save what's rising<span>Saving is cheap and infinite</span></div></li>
+          <li><div>You get credit when it takes off<span>Called it: status from foresight</span></div></li>
+          <li><div>Saves turn into plans with friends<span>Plans: taste twins, acted on</span></div></li>
+          <li><div>You go, and you post about it<span>A lived experience</span></div></li>
+        </ol>
+        <div class="back">↺ Back to step 1</div>
+      </div>
+    </div>
+
+    <div class="story">
+      <div class="mono">The answer to Tony's question, with the pick</div>
+      <p class="t">It's Wednesday at 5:04pm. You open Benable because:</p>
+      <ul>
+        <li><span class="mono">Pulse</span><span>A new LoHi patio is rising. Six creators went this week, and you watch them in 20 seconds.</span></li>
+        <li><span class="mono">Called it</span><span>You saved Hop Alley 41 days ago. It just hit the Pulse, and you're #2 on Denver's early finders.</span></li>
+        <li><span class="mono">Plans</span><span>You, Maya and Sam all saved it and you're all free Thursday. You tap "Thursday?"</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Five questions for Tuesday and Wednesday</h2>
+    <div class="qs">
+      <div class="q"><b>What is Benable's unit: a rec, a moment, or a plan?</b><span>Everything else follows from this choice.</span></div>
+      <div class="q"><b>Who is the daily user: creators, or the people who follow them?</b><span>The Pulse serves browsers. Called it and Regulars serve the people who post.</span></div>
+      <div class="q"><b>What gives status: followers, foresight, or proof?</b><span>Followers is what Instagram already does. Foresight and proof are open.</span></div>
+      <div class="q"><b>Do we compete with AI, or feed it?</b><span>Ask and the taste agent compete with it. The human layer feeds it.</span></div>
+      <div class="q"><b>Which idea would we regret not having started if the floor ships alone on Dec 14?</b><span>That's the one to prototype first.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="mono">Sources</span>
+      <span>Denver product review with Tony and Olivia, Nov 23, 2026 (Granola). Julia and Olivia's call, Nov 4, 2026 (mini guides). The Denver onboarding, Top 5 and Ask Denver studies.</span>
+      <span>Every scene is illustrative. Places are real Denver spots used as examples, and all counts, people and dates in the scenes are made up. The test chips are our read, not measured: filled means strong, outlined means partial.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var c=document.getElementById('ridge'); if(!c) return;
+  function draw(){
+    var w=c.clientWidth, h=c.clientHeight, d=window.devicePixelRatio||1;
+    c.width=w*d; c.height=h*d; var x=c.getContext('2d'); x.scale(d,d);
+    var cs=getComputedStyle(document.documentElement);
+    var cols=['--ridge1','--ridge2','--ridge3'].map(function(k){return cs.getPropertyValue(k).trim();});
+    var layers=[{b:.30,a:.36,f:[2.1,5.3,11.7],p:[.4,1.9,3.1]},{b:.52,a:.30,f:[1.6,4.1,9.3],p:[2.2,.7,1.4]},{b:.74,a:.22,f:[2.7,6.2,13.1],p:[1.1,2.6,.3]}];
+    layers.forEach(function(L,i){
+      x.beginPath(); x.moveTo(0,h);
+      for(var px=0;px<=w;px+=4){
+        var t=px/w, y=0;
+        y+=Math.sin(t*L.f[0]*Math.PI+L.p[0])*.55;
+        y+=Math.sin(t*L.f[1]*Math.PI+L.p[1])*.3;
+        y+=Math.abs(Math.sin(t*L.f[2]*Math.PI+L.p[2]))*.25;
+        x.lineTo(px,h*L.b-y*h*L.a*.6+(i===0?h*.05:0));
+      }
+      x.lineTo(w,h); x.closePath(); x.fillStyle=cols[i]; x.fill();
+    });
+  }
+  draw();
+  window.addEventListener('resize',draw);
+  try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);}catch(e){}
+  try{new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
+})();
+</script>
+
+</html>
